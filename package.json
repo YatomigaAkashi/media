@@ -1,0 +1,23 @@
+{
+  "name": "media",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "clone": "^2.1.2"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "jest": "^26.0.1",
+    "matrix-eig": "^1.0.0"
+  }
+}
