@@ -20,4 +20,4 @@ function k_l(data, rate) {
     }
 }
 
-export default { k_l }
+export default k_l

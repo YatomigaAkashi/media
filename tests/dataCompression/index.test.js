@@ -1,5 +1,5 @@
-import ch from '../../ColorHistogram/index'
-import ya_file from "../../ColorHistogram/ya_file"
+import ch from '../../dataCompression/index'
+import ya_file from "../../dataCompression/ya_file"
 import path from "path"
 
 describe('test work 2', () => {
