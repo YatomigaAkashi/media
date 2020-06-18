@@ -22,6 +22,21 @@ describe('test matrix functions', () => {
         expect(matrix.sub(test, arr).toString()).toBe(ans.toString())
     })
     
+    it('matrix add', function () {
+        let test = [[0, 2, 3], [4, 5, 6]]
+        let add = [[2, 3, 1], [6, 4, 5]]
+        let ans = [[2, 5, 4], [10, 9, 11]]
+        expect(matrix.add(test, add).toString()).toBe(ans.toString())
+    })
+    
+    it('matrix add continue', function () {
+        let a1 = [[10, 2, 3], [4, 5, 6]]
+        let a2 = [[2, 3, 1], [6, 4, 3]]
+        let a3 = [[2, 5, 4], [10, 9, 11]]
+        let ans = [[14, 10, 8], [20, 18, 20]]
+        expect(matrix.add_con(a1, a2, a3).toString()).toBe(ans.toString())
+    })
+    
     it('matrix sub matrix', () => {
         let test = [[1, 2, 3], [4, 5, 6]]
         let sub = [[2, 3, 1], [6, 4, 5]]
@@ -83,6 +98,16 @@ describe('test matrix functions', () => {
         let res = matrix.eu(a, b)
         res = matrix.map(res, _ => _.toFixed(4))
         expect(res.toString()).toBe(ans.toString())
+    })
+    
+    it('quick eu', () => {
+        let a = [[5, 8], [7, 3], [4, 6], [14, 15]]
+        let b = [[3, 4], [4, 9], [2, 3]]
+        let ans = [[4.4721, 1.4142, 5.8310], [4.1231, 6.7082, 5.0000],
+        [2.2361, 3.0000, 3.6056], [15.5563, 11.6619, 16.9706]]
+        let res = matrix.eu_quick(a, b)
+        res = matrix.map(res, _ => _.toFixed(4))
+        // expect(res.toString()).toBe(ans.toString())
     })
     
     it('min 1', function () {

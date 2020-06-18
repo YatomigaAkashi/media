@@ -7,7 +7,7 @@ class Vq {
         let inf = Infinity // 无穷大
         let theta = 0.001
         let code = Matrix.mean(data)  // 初始化码矢
-        for (let i = 0; i < Math.sqrt(num); i++) {
+        for (let i = 0; i < Math.sqrt(num) - 1; i++) {
             let code1 = Matrix.multi(code, (1 - theta))
             let code2 = Matrix.multi(code, (1 + theta))
             code = typeof code1[0] === "number"? [code1, code2]: [...code1, ...code2]
@@ -20,7 +20,7 @@ class Vq {
                     let i_min = []
                     min.forEach((_, index) => _.i === j? i_min.push(index): '')
                     if (i_min.length !== 0) {
-                        let x = data.filter((_, index) => i_min.find(_ => _ === index))
+                        let x = i_min.map(index => data[index])
                         code[j] = Matrix.mean(x)
                         e_distort = Ya_array.sum(Matrix.eu(x, code[j]))
                     }
