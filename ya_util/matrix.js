@@ -1,6 +1,7 @@
 import clone from 'clone'
 import matrix_eig from 'matrix-eig'
 import ya_array from './ya_array'
+import vector from './vector'
 
 class Matrix {
     // 充满0的矩阵
@@ -8,12 +9,20 @@ class Matrix {
         return (new Array(x)).fill((new Array(y)).fill(0))
     }
     
+    // 矩阵遍历
+    static map(matrix, callback) {
+        return matrix.map((_, i) => _.map((_, j) => callback(_, i, j)))
+    }
+    
     // 获取矩阵长度
     static size(matrix, p = 1) {
-        if (p === 1) {
-            return matrix.length
-        }
-        return Matrix.size(matrix[0], p - 1)
+        return p === 1? matrix.length: Matrix.size(matrix[0], p - 1)
+    }
+    
+    // 返回维度 matrix 上的最小元素
+    static min(matrix, i) {
+        if (i === 2) return matrix.map(_ => vector.min(_))
+        else if (i === 1) return Matrix.trans(matrix).map(_ => vector.min(_))
     }
     
     // 矩阵均值
@@ -43,39 +52,40 @@ class Matrix {
         })
     }
     
-    // 交换矩阵对称的两个元素
-    static swap(matrix, x, y) {
-        let n = matrix[x][y]
-        matrix[x][y] = matrix[y][x]
-        matrix[y][x] = n
-    }
-    
     // 转置矩阵
     static trans(matrix) {
         let zeros = Matrix.zeros(Matrix.size(matrix, 2), Matrix.size(matrix, 1))
-        return zeros.map((_, i) => _.map((_, j) => matrix[j][i]))
+        return Matrix.map(zeros, (_, i, j) => matrix[j][i])
     }
     
     // 矩阵减法
     static sub(matrix, arr) {
-        let multi = ya_array.multi(arr)
-        if (multi === 1) {
-            return matrix.map(x => x.map((val, index) => val - arr[index]))
-        } else if (multi === 2) {
-            return matrix.map((x, i) => x.map((y, j) => y - arr[i][j]))
-        }
-        throw new Error(`${arr} multi is not available`)
+        return ya_array.multi(arr) === 1? Matrix.map(matrix, (_, i, j) => _ - arr[j]): Matrix.map(matrix, (_, i, j) => _ - arr[i][j])
     }
     
     // 矩阵乘法
     static multi(a, b) {
+        if (typeof b === "number") {
+            if (typeof a[0] === "number") return a.map(_ => _ * b)
+            return Matrix.map(a, _ => _ * b)
+        }
         let zeros = Matrix.zeros(Matrix.size(a, 1), Matrix.size(b, 2))
-        return zeros.map((_, i) => _.map((_, k) => a[i].reduce((sum, cell, j) => sum + cell * b[j][k], 0)))
+        return Matrix.map(zeros, (_, i, j) => a[i].reduce((sum, cell, k) => sum + cell * b[k][j], 0))
     }
     
     // 矩阵除法
     static div(matrix, n) {
-        return matrix.map(row => row.map(val => val / n))
+        return Matrix.map(matrix, _ => _ / n)
+    }
+    
+    // 矩阵欧氏距离
+    static eu(a, b) {
+        if (typeof b[0] === "number") {
+            let zeros = (new Array(Matrix.size(a, 1))).fill(0)
+            return zeros.map((_, i) => vector.norm(a[i], b))
+        }
+        let zeros = Matrix.zeros(Matrix.size(a, 1), Matrix.size(b, 1))
+        return Matrix.map(zeros, (_, i, j) => vector.norm(a[i], b[j]))
     }
 }
 
