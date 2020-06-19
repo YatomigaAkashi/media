@@ -1,6 +1,5 @@
 import Matrix from '../ya_util/matrix'
 import Ya_array from "../ya_util/ya_array"
-import Vector from "../ya_util/vector"
 
 class Vq {
     static vq(data, num) {

@@ -1,4 +1,4 @@
-import vector from '../../ya_util/vector'
+import vector from '../../src/ya_util/vector'
 
 describe('vector', () => {
     it('vector sub', function () {

@@ -1,4 +1,4 @@
-import matrix from '../../ya_util/matrix'
+import matrix from '../../src/ya_util/matrix'
 
 describe('test matrix functions', () => {
     

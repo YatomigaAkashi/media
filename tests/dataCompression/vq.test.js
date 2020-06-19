@@ -1,4 +1,4 @@
-import vq from '../../dataCompression/vq'
+import vq from '../../src/dataCompression/vq'
 
 describe('VQ', () => {
     it('vq', function () {

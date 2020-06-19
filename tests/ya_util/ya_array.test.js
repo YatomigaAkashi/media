@@ -1,4 +1,4 @@
-import ya_array from '../../ya_util/ya_array'
+import ya_array from '../../src/ya_util/ya_array'
 
 describe('test array functions', () => {
     
